@@ -12,16 +12,16 @@ import {
   TouchableOpacity
 } from "react-native";
 
-const Images = [
-  {
-    uri:
-      "http://lisamariestudio.com/wp/wp-content/uploads/2018/07/LisaMarie_LOVE_reflections_extended_lo_cropped.jpg"
-  },
-  {
-    uri:
-      "https://i.pinimg.com/originals/09/41/26/09412692c3564c28a7604211e792a732.png"
-  }
-];
+// const Images = [
+//   {
+//     uri:
+//       "http://lisamariestudio.com/wp/wp-content/uploads/2018/07/LisaMarie_LOVE_reflections_extended_lo_cropped.jpg"
+//   },
+//   {
+//     uri:
+//       "https://i.pinimg.com/originals/09/41/26/09412692c3564c28a7604211e792a732.png"
+//   }
+// ];
 
 const { width, height } = Dimensions.get("window");
 
@@ -42,7 +42,10 @@ export default class LinksScreen extends React.Component {
         },
         title: "Heart Wall",
         description: "This is the best place in Portland",
-        image: Images[0]
+        image: {
+          uri:
+            "http://lisamariestudio.com/wp/wp-content/uploads/2018/07/LisaMarie_LOVE_reflections_extended_lo_cropped.jpg"
+        }
       },
       {
         coordinate: {
@@ -51,7 +54,10 @@ export default class LinksScreen extends React.Component {
         },
         title: "Watermelon Wall",
         description: "This is the second best place in Portland",
-        image: Images[1]
+        image: {
+          uri:
+            "https://i.pinimg.com/originals/09/41/26/09412692c3564c28a7604211e792a732.png"
+        }
       }
     ],
     region: {

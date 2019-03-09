@@ -62,7 +62,59 @@ export default class LinksScreen extends React.Component {
     }
   };
 
+  componentWillMount() {
+    this.index = 0;
+    this.animation = new Animated.Value(0);
+  }
+
+  componentDidMount() {
+    this.animation.addListener(({ value }) => {
+      let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
+      if (index >= this.state.markers.length) {
+        index = this.state.markers.length - 1;
+      }
+      if (index <= 0) {
+        index = 0;
+      }
+
+      clearTimeout(this.regionTimeout);
+      this.regionTimeout = setTimeout(() => {
+        if (this.index !== index) {
+          this.index = index;
+          const { coordinate } = this.state.markers[index];
+          this.map.animateToRegion(
+            {
+              ...coordinate,
+              latitudeDelta: this.state.region.latitudeDelta,
+              longitudeDelta: this.state.region.longitudeDelta
+            },
+            350
+          );
+        }
+      }, 10);
+    });
+  }
+
   render() {
+    const interpolations = this.state.markers.map((marker, index) => {
+      const inputRange = [
+        (index - 1) * CARD_WIDTH,
+        index * CARD_WIDTH,
+        (index + 1) * CARD_WIDTH
+      ];
+      const scale = this.animation.interpolate({
+        inputRange,
+        outputRange: [1, 2.5, 1],
+        extrapolate: "clamp"
+      });
+      const opacity = this.animation.interpolate({
+        inputRange,
+        outputRange: [0.35, 1, 0.35],
+        extrapolate: "clamp"
+      });
+      return { scale, opacity };
+    });
+
     return (
       <React.Fragment>
         <MapView
@@ -71,10 +123,20 @@ export default class LinksScreen extends React.Component {
           style={styles.container}
         >
           {this.state.markers.map((marker, index) => {
+            const scaleStyle = {
+              transform: [
+                {
+                  scale: interpolations[index].scale
+                }
+              ]
+            };
+            const opacityStyle = {
+              opacity: interpolations[index].opacity
+            };
             return (
               <MapView.Marker key={index} coordinate={marker.coordinate}>
-                <Animated.View style={[styles.markerWrap]}>
-                  <Animated.View style={[styles.ring]} />
+                <Animated.View style={[styles.markerWrap, opacityStyle]}>
+                  <Animated.View style={[styles.ring, scaleStyle]} />
                   <View style={styles.marker} />
                 </Animated.View>
               </MapView.Marker>
@@ -203,7 +265,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     borderRadius: 12,
-    backgroundColor: "rgba(130,4,150, 0.3)",
+    backgroundColor: "#f88379",
     position: "absolute",
     borderWidth: 1,
     borderColor: "rgba(130,4,150, 0.5)"

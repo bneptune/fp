@@ -64,22 +64,62 @@ export default class LinksScreen extends React.Component {
 
   render() {
     return (
-      <MapView
-        ref={map => (this.map = map)}
-        initialRegion={this.state.region}
-        style={styles.container}
-      >
-        {this.state.markers.map((marker, index) => {
-          return (
-            <MapView.Marker key={index} coordinate={marker.coordinate}>
-              <Animated.View style={[styles.markerWrap]}>
-                <Animated.View style={[styles.ring]} />
-                <View style={styles.marker} />
-              </Animated.View>
-            </MapView.Marker>
-          );
-        })}
-      </MapView>
+      <React.Fragment>
+        <MapView
+          ref={map => (this.map = map)}
+          initialRegion={this.state.region}
+          style={styles.container}
+        >
+          {this.state.markers.map((marker, index) => {
+            return (
+              <MapView.Marker key={index} coordinate={marker.coordinate}>
+                <Animated.View style={[styles.markerWrap]}>
+                  <Animated.View style={[styles.ring]} />
+                  <View style={styles.marker} />
+                </Animated.View>
+              </MapView.Marker>
+            );
+          })}
+        </MapView>
+        <Animated.ScrollView
+          horizontal
+          scrollEventThrottle={1}
+          showsHorizontalScrollIndicator={false}
+          snapToInterval={CARD_WIDTH}
+          onScroll={Animated.event(
+            [
+              {
+                nativeEvent: {
+                  contentOffset: {
+                    x: this.animation
+                  }
+                }
+              }
+            ],
+            { useNativeDriver: true }
+          )}
+          style={styles.scrollView}
+          contentContainerStyle={styles.endPadding}
+        >
+          {this.state.markers.map((marker, index) => (
+            <View style={styles.card} key={index}>
+              <Image
+                source={marker.image}
+                style={styles.cardImage}
+                resizeMode="cover"
+              />
+              <View style={styles.textContent}>
+                <Text numberOfLines={1} style={styles.cardtitle}>
+                  {marker.title}
+                </Text>
+                <Text numberOfLines={1} style={styles.cardDescription}>
+                  {marker.description}
+                </Text>
+              </View>
+            </View>
+          ))}
+        </Animated.ScrollView>
+      </React.Fragment>
 
       // <MapView
       //   style={styles.map}

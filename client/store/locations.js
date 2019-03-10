@@ -23,6 +23,24 @@ export const getAllLocations = () => {
   };
 };
 
+export const gotSingleLocation = location => ({
+  type: GET_SINGLE_LOCATION,
+  location
+});
+
+export const getSingleLocation = () => {
+  return dispatch => {
+    fetch("https://pheed-test.firebaseio.com/locations/4.json")
+      .catch(err => console.log(err))
+      .then(res => res.json())
+      .then(parsedRes => {
+        const singleLocation = parsedRes;
+        dispatch(gotSingleLocation(singleLocation));
+        console.log("Single", singleLocation);
+      });
+  };
+};
+
 // export const addedLocationImage = (locationName, image) => {
 //   return dispatch => {
 //     const placeData = {
@@ -46,11 +64,6 @@ export const getAllLocations = () => {
 //   image
 // });
 
-export const gotSingleLocation = location => ({
-  type: GET_SINGLE_LOCATION,
-  location
-});
-
 export const gotFavoriteLocations = locations => ({
   type: GET_FAVORITE_LOCATIONS,
   location
@@ -66,6 +79,8 @@ const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_LOCATIONS:
       return { ...state, locations: action.locations };
+    case GET_SINGLE_LOCATION:
+      return { ...state, singleLocation: action.location };
     default:
       return state;
   }

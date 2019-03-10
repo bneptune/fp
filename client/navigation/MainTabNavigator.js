@@ -150,7 +150,7 @@ const stackNavigator = createStackNavigator(
     Single: SingleLocation
   },
   {
-    cardStyle: { backgroundColor: "red" }
+    cardStyle: { backgroundColor: "white" }
   }
 );
 

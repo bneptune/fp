@@ -5,6 +5,7 @@ import { Callout } from "react-native-maps";
 import { SingleStack } from "../screens/SingleLocation";
 import { connect } from "react-redux";
 import { getAllLocations } from "../store/locations";
+import { withNavigation } from "react-navigation";
 import {
   StyleSheet,
   Text,
@@ -55,51 +56,51 @@ class MapScreen extends React.Component {
 
   state = {
     markers: [
-      // {
-      //   coordinate: {
-      //     latitude: 38.9086624,
-      //     longitude: -76.9990501
-      //   },
-      //   title: "Heart Wall",
-      //   description: "This is the best place in Portland",
-      //   image: Images[0]
-      // },
-      // {
-      //   coordinate: {
-      //     latitude: 38.910948,
-      //     longitude: -77.027537
-      //   },
-      //   title: "Watermelon Wall",
-      //   description: "This is the second best place in Portland",
-      //   image: Images[1]
-      // },
-      // {
-      //   coordinate: {
-      //     latitude: 40.7210019,
-      //     longitude: -73.9968509
-      //   },
-      //   title: "Pietro Nolita",
-      //   description: "This is the best place in Portland",
-      //   image: Images[2]
-      // },
-      // {
-      //   coordinate: {
-      //     latitude: 38.9084356,
-      //     longitude: -76.9996593
-      //   },
-      //   title: "Union Market",
-      //   description: "This is the best place in Portland",
-      //   image: Images[3]
-      // },
-      // {
-      //   coordinate: {
-      //     latitude: 40.7543661,
-      //     longitude: -73.9944267
-      //   },
-      //   title: "305 Fitness",
-      //   description: "This is the best place in Portland",
-      //   image: Images[4]
-      // }
+      {
+        coordinate: {
+          latitude: 38.9086624,
+          longitude: -76.9990501
+        },
+        title: "Heart Wall",
+        description: "This is the best place in Portland",
+        image: Images[0]
+      },
+      {
+        coordinate: {
+          latitude: 38.910948,
+          longitude: -77.027537
+        },
+        title: "Watermelon Wall",
+        description: "This is the second best place in Portland",
+        image: Images[1]
+      },
+      {
+        coordinate: {
+          latitude: 40.7210019,
+          longitude: -73.9968509
+        },
+        title: "Pietro Nolita",
+        description: "This is the best place in Portland",
+        image: Images[2]
+      },
+      {
+        coordinate: {
+          latitude: 38.9084356,
+          longitude: -76.9996593
+        },
+        title: "Union Market",
+        description: "This is the best place in Portland",
+        image: Images[3]
+      },
+      {
+        coordinate: {
+          latitude: 40.7543661,
+          longitude: -73.9944267
+        },
+        title: "305 Fitness",
+        description: "This is the best place in Portland",
+        image: Images[4]
+      }
     ],
     region: {
       latitude: 38.910948,
@@ -110,18 +111,28 @@ class MapScreen extends React.Component {
   };
 
   componentWillMount() {
-    this.props.getLocations();
+    const { navigation } = this.props;
+    this.focusListener = navigation.addListener("didFocus", () => {
+      // The screen is focused
+      // Call any action
+      this.props.getLocations();
+    });
+
     this.index = 0;
     this.animation = new Animated.Value(0);
   }
 
+  componentWillUnmount() {
+    // Remove the event listener
+    this.focusListener.remove();
+  }
   componentDidMount() {
-    // this.setState({ markers: this.props.locations });
+    // this.setState({ markers: this.state.markers });
 
     this.animation.addListener(({ value }) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
-      if (index >= this.props.locations.length) {
-        index = this.props.locations.length - 1;
+      if (index >= this.state.markers.length) {
+        index = this.state.markers.length - 1;
       }
       if (index <= 0) {
         index = 0;
@@ -131,7 +142,7 @@ class MapScreen extends React.Component {
       this.regionTimeout = setTimeout(() => {
         if (this.index !== index) {
           this.index = index;
-          const { coordinate } = this.props.locations[index];
+          const { coordinate } = this.state.markers[index];
           this.map.animateToRegion(
             {
               ...coordinate,
@@ -148,9 +159,9 @@ class MapScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     console.log(this.props.navigation.navigate);
-    console.log("Hey", this.state);
+    console.log("Hey", this.props.state);
 
-    const interpolations = this.props.locations.map((marker, index) => {
+    const interpolations = this.state.markers.map((marker, index) => {
       const inputRange = [
         (index - 1) * CARD_WIDTH,
         index * CARD_WIDTH,
@@ -169,7 +180,7 @@ class MapScreen extends React.Component {
       return { scale, opacity };
     });
 
-    return this.props.locations.length === 0 ? (
+    return this.state.markers.length === 0 ? (
       <View>
         <Text>Loading...</Text>
       </View>
@@ -180,7 +191,7 @@ class MapScreen extends React.Component {
           initialRegion={this.state.region}
           style={styles.container}
         >
-          {this.props.locations.map((marker, index) => {
+          {this.state.markers.map((marker, index) => {
             const scaleStyle = {
               transform: [
                 {
@@ -221,7 +232,7 @@ class MapScreen extends React.Component {
           style={styles.scrollView}
           contentContainerStyle={styles.endPadding}
         >
-          {this.props.locations.map((marker, index) => (
+          {this.state.markers.map((marker, index) => (
             <View style={styles.card} key={index}>
               <Image
                 source={marker.image}
@@ -229,7 +240,7 @@ class MapScreen extends React.Component {
                 resizeMode="cover"
               />
               <Button
-                title="Test"
+                title={marker.title}
                 onPress={() => navigate("Single", { name: index })}
               />
               <View style={styles.textContent}>
@@ -346,7 +357,9 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(MapScreen);
+export default withNavigation(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(MapScreen)
+);

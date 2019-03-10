@@ -4,10 +4,10 @@ import {
   createStackNavigator,
   createBottomTabNavigator
 } from "react-navigation";
-
+import { Ionicons } from "@expo/vector-icons";
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
-import LinksScreen from "../screens/LinksScreen";
+import MapScreen from "../screens/MapScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import EmojiDict from "../screens/EmojiDict";
 
@@ -29,7 +29,7 @@ EmojiStack.navigationOptions = {
   )
 };
 
-const HomeStack = createStackNavigator({
+export const HomeStack = createStackNavigator({
   Home: HomeScreen
 });
 
@@ -47,16 +47,16 @@ HomeStack.navigationOptions = {
   )
 };
 
-const LinksStack = createStackNavigator({
-  Links: LinksScreen
+const MapStack = createStackNavigator({
+  Locations: MapScreen
 });
 
-LinksStack.navigationOptions = {
-  tabBarLabel: "Links",
+MapStack.navigationOptions = {
+  tabBarLabel: "Locations",
   tabBarIcon: ({ focused }) => (
     <TabBarIcon
       focused={focused}
-      name={Platform.OS === "ios" ? "ios-link" : "md-link"}
+      name={Platform.OS === "ios" ? "ios-camera" : "md-camera"}
     />
   )
 };
@@ -77,7 +77,7 @@ SettingsStack.navigationOptions = {
 
 export default createBottomTabNavigator({
   HomeStack,
-  LinksStack,
+  MapStack,
   SettingsStack,
   EmojiStack
 });

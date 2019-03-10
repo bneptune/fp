@@ -1,6 +1,9 @@
 import React from "react";
 import { MapView } from "expo";
 import { Callout } from "react-native-maps";
+// import { createStackNavigator } from "react-navigation";
+// import SingleLocation from "../screens/SingleLocation";
+import { HomeStack } from "../screens/HomeScreen";
 import {
   StyleSheet,
   Text,
@@ -9,28 +12,33 @@ import {
   Animated,
   Image,
   Dimensions,
-  TouchableOpacity
+  TouchableOpacity,
+  Button
 } from "react-native";
 
-// const Images = [
-//   {
-//     uri:
-//       "http://lisamariestudio.com/wp/wp-content/uploads/2018/07/LisaMarie_LOVE_reflections_extended_lo_cropped.jpg"
-//   },
-//   {
-//     uri:
-//       "https://i.pinimg.com/originals/09/41/26/09412692c3564c28a7604211e792a732.png"
-//   }
-// ];
+// const HomeStack = createStackNavigator({
+//   Home: HomeScreen
+// });
+
+const Images = [
+  {
+    uri:
+      "http://lisamariestudio.com/wp/wp-content/uploads/2018/07/LisaMarie_LOVE_reflections_extended_lo_cropped.jpg"
+  },
+  {
+    uri:
+      "https://i.pinimg.com/originals/09/41/26/09412692c3564c28a7604211e792a732.png"
+  }
+];
 
 const { width, height } = Dimensions.get("window");
 
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
 
-export default class LinksScreen extends React.Component {
+export default class MapScreen extends React.Component {
   static navigationOptions = {
-    title: "Links"
+    title: "Pheed"
   };
 
   state = {
@@ -42,10 +50,7 @@ export default class LinksScreen extends React.Component {
         },
         title: "Heart Wall",
         description: "This is the best place in Portland",
-        image: {
-          uri:
-            "http://lisamariestudio.com/wp/wp-content/uploads/2018/07/LisaMarie_LOVE_reflections_extended_lo_cropped.jpg"
-        }
+        image: Images[0]
       },
       {
         coordinate: {
@@ -54,10 +59,7 @@ export default class LinksScreen extends React.Component {
         },
         title: "Watermelon Wall",
         description: "This is the second best place in Portland",
-        image: {
-          uri:
-            "https://i.pinimg.com/originals/09/41/26/09412692c3564c28a7604211e792a732.png"
-        }
+        image: Images[1]
       }
     ],
     region: {
@@ -102,6 +104,9 @@ export default class LinksScreen extends React.Component {
   }
 
   render() {
+    const { navigate } = this.props.navigation;
+    console.log(this.props.navigation.navigate);
+
     const interpolations = this.state.markers.map((marker, index) => {
       const inputRange = [
         (index - 1) * CARD_WIDTH,
@@ -176,6 +181,7 @@ export default class LinksScreen extends React.Component {
                 style={styles.cardImage}
                 resizeMode="cover"
               />
+              <Button title="Test" onPress={() => navigate("HomeStack")} />
               <View style={styles.textContent}>
                 <Text numberOfLines={1} style={styles.cardtitle}>
                   {marker.title}

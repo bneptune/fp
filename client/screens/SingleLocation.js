@@ -11,7 +11,10 @@ class SingleLocation extends Component {
   };
 
   render() {
-    console.log(this.props);
+    console.log("Nav", this.props.navigation);
+    console.log(
+      JSON.stringify(this.props.navigation.getParam("name", "default"))
+    );
     return <Text>Hi</Text>;
   }
 }

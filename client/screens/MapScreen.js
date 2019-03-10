@@ -228,7 +228,10 @@ class MapScreen extends React.Component {
                 style={styles.cardImage}
                 resizeMode="cover"
               />
-              <Button title="Test" onPress={() => navigate("SingleStack")} />
+              <Button
+                title="Test"
+                onPress={() => navigate("Single", { name: index })}
+              />
               <View style={styles.textContent}>
                 <Text numberOfLines={1} style={styles.cardtitle}>
                   {marker.title}

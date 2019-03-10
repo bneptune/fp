@@ -27,6 +27,17 @@ const Images = [
   {
     uri:
       "https://i.pinimg.com/originals/09/41/26/09412692c3564c28a7604211e792a732.png"
+  },
+  {
+    uri: "https://s3-media1.fl.yelpcdn.com/bphoto/B2SQTk7xM-W4nmuBbOkLSA/o.jpg"
+  },
+  {
+    uri:
+      "https://static.wixstatic.com/media/2fdcea_750bde66d7a74a88b19042cf2757a682~mv2.jpg/v1/fill/w_630,h_420,al_c,q_80,usm_0.66_1.00_0.01/2fdcea_750bde66d7a74a88b19042cf2757a682~mv2.jpg"
+  },
+  {
+    uri:
+      "http://mediad.publicbroadcasting.net/p/wlrn/files/styles/x_large/public/201612/File_000_0.jpeg"
   }
 ];
 
@@ -59,6 +70,33 @@ export default class MapScreen extends React.Component {
         title: "Watermelon Wall",
         description: "This is the second best place in Portland",
         image: Images[1]
+      },
+      {
+        coordinate: {
+          latitude: 40.7210019,
+          longitude: -73.9968509
+        },
+        title: "Pietro Nolita",
+        description: "This is the best place in Portland",
+        image: Images[2]
+      },
+      {
+        coordinate: {
+          latitude: 38.9084356,
+          longitude: -76.9996593
+        },
+        title: "Union Market",
+        description: "This is the best place in Portland",
+        image: Images[3]
+      },
+      {
+        coordinate: {
+          latitude: 40.7543661,
+          longitude: -73.9944267
+        },
+        title: "305 Fitness NY",
+        description: "This is the best place in Portland",
+        image: Images[4]
       }
     ],
     region: {

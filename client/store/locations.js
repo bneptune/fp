@@ -11,22 +11,34 @@ export const gotAllLocations = locations => ({
   locations
 });
 
-export const addedLocationImage = (locationName, image) => {
+export const getAllLocations = () => {
   return dispatch => {
-    const placeData = {
-      name: locationName
-    };
-    fetch("https://pheed-test.firebaseio.com/images.json", {
-      method: "POST",
-      body: JSON.stringify(placeData)
-    })
+    fetch("https://pheed-test.firebaseio.com/locations.json")
       .catch(err => console.log(err))
       .then(res => res.json())
       .then(parsedRes => {
-        console.log(parsedRes);
+        const locations = parsedRes;
+        dispatch(gotAllLocations(locations));
       });
   };
 };
+
+// export const addedLocationImage = (locationName, image) => {
+//   return dispatch => {
+//     const placeData = {
+//       name: locationName
+//     };
+//     fetch("https://pheed-test.firebaseio.com/images.json", {
+//       method: "POST",
+//       body: JSON.stringify(placeData)
+//     })
+//       .catch(err => console.log(err))
+//       .then(res => res.json())
+//       .then(parsedRes => {
+//         console.log(parsedRes);
+//       });
+//   };
+// };
 
 // export const addedLocationImage = (locationId, image) => ({
 //   type: ADD_LOCATION_IMAGE,
@@ -49,6 +61,7 @@ const initialState = {
   singleLocation: {},
   favoriteLocations: []
 };
+
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case GET_ALL_LOCATIONS:

@@ -3,6 +3,8 @@ import { MapView } from "expo";
 import { Callout } from "react-native-maps";
 // import { createStackNavigator } from "react-navigation";
 import { SingleStack } from "../screens/SingleLocation";
+import { connect } from "react-redux";
+import { getAllLocations } from "../store/locations";
 import {
   StyleSheet,
   Text,
@@ -46,58 +48,58 @@ const { width, height } = Dimensions.get("window");
 const CARD_HEIGHT = height / 4;
 const CARD_WIDTH = CARD_HEIGHT - 50;
 
-export default class MapScreen extends React.Component {
+class MapScreen extends React.Component {
   static navigationOptions = {
     title: "Pheed"
   };
 
   state = {
     markers: [
-      {
-        coordinate: {
-          latitude: 38.9086624,
-          longitude: -76.9990501
-        },
-        title: "Heart Wall",
-        description: "This is the best place in Portland",
-        image: Images[0]
-      },
-      {
-        coordinate: {
-          latitude: 38.910948,
-          longitude: -77.027537
-        },
-        title: "Watermelon Wall",
-        description: "This is the second best place in Portland",
-        image: Images[1]
-      },
-      {
-        coordinate: {
-          latitude: 40.7210019,
-          longitude: -73.9968509
-        },
-        title: "Pietro Nolita",
-        description: "This is the best place in Portland",
-        image: Images[2]
-      },
-      {
-        coordinate: {
-          latitude: 38.9084356,
-          longitude: -76.9996593
-        },
-        title: "Union Market",
-        description: "This is the best place in Portland",
-        image: Images[3]
-      },
-      {
-        coordinate: {
-          latitude: 40.7543661,
-          longitude: -73.9944267
-        },
-        title: "305 Fitness NY",
-        description: "This is the best place in Portland",
-        image: Images[4]
-      }
+      // {
+      //   coordinate: {
+      //     latitude: 38.9086624,
+      //     longitude: -76.9990501
+      //   },
+      //   title: "Heart Wall",
+      //   description: "This is the best place in Portland",
+      //   image: Images[0]
+      // },
+      // {
+      //   coordinate: {
+      //     latitude: 38.910948,
+      //     longitude: -77.027537
+      //   },
+      //   title: "Watermelon Wall",
+      //   description: "This is the second best place in Portland",
+      //   image: Images[1]
+      // },
+      // {
+      //   coordinate: {
+      //     latitude: 40.7210019,
+      //     longitude: -73.9968509
+      //   },
+      //   title: "Pietro Nolita",
+      //   description: "This is the best place in Portland",
+      //   image: Images[2]
+      // },
+      // {
+      //   coordinate: {
+      //     latitude: 38.9084356,
+      //     longitude: -76.9996593
+      //   },
+      //   title: "Union Market",
+      //   description: "This is the best place in Portland",
+      //   image: Images[3]
+      // },
+      // {
+      //   coordinate: {
+      //     latitude: 40.7543661,
+      //     longitude: -73.9944267
+      //   },
+      //   title: "305 Fitness",
+      //   description: "This is the best place in Portland",
+      //   image: Images[4]
+      // }
     ],
     region: {
       latitude: 38.910948,
@@ -108,15 +110,18 @@ export default class MapScreen extends React.Component {
   };
 
   componentWillMount() {
+    this.props.getLocations();
     this.index = 0;
     this.animation = new Animated.Value(0);
   }
 
   componentDidMount() {
+    // this.setState({ markers: this.props.locations });
+
     this.animation.addListener(({ value }) => {
       let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
-      if (index >= this.state.markers.length) {
-        index = this.state.markers.length - 1;
+      if (index >= this.props.locations.length) {
+        index = this.props.locations.length - 1;
       }
       if (index <= 0) {
         index = 0;
@@ -126,7 +131,7 @@ export default class MapScreen extends React.Component {
       this.regionTimeout = setTimeout(() => {
         if (this.index !== index) {
           this.index = index;
-          const { coordinate } = this.state.markers[index];
+          const { coordinate } = this.props.locations[index];
           this.map.animateToRegion(
             {
               ...coordinate,
@@ -143,8 +148,9 @@ export default class MapScreen extends React.Component {
   render() {
     const { navigate } = this.props.navigation;
     console.log(this.props.navigation.navigate);
+    console.log("Hey", this.state);
 
-    const interpolations = this.state.markers.map((marker, index) => {
+    const interpolations = this.props.locations.map((marker, index) => {
       const inputRange = [
         (index - 1) * CARD_WIDTH,
         index * CARD_WIDTH,
@@ -163,14 +169,18 @@ export default class MapScreen extends React.Component {
       return { scale, opacity };
     });
 
-    return (
+    return this.props.locations.length === 0 ? (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    ) : (
       <React.Fragment>
         <MapView
           ref={map => (this.map = map)}
           initialRegion={this.state.region}
           style={styles.container}
         >
-          {this.state.markers.map((marker, index) => {
+          {this.props.locations.map((marker, index) => {
             const scaleStyle = {
               transform: [
                 {
@@ -211,7 +221,7 @@ export default class MapScreen extends React.Component {
           style={styles.scrollView}
           contentContainerStyle={styles.endPadding}
         >
-          {this.state.markers.map((marker, index) => (
+          {this.props.locations.map((marker, index) => (
             <View style={styles.card} key={index}>
               <Image
                 source={marker.image}
@@ -231,27 +241,27 @@ export default class MapScreen extends React.Component {
           ))}
         </Animated.ScrollView>
       </React.Fragment>
-
-      // <MapView
-      //   style={styles.map}
-      //   initialRegion={{
-      //     latitude: 37.78825,
-      //     longitude: -122.4324,
-      //     latitudeDelta: 0.0922,
-      //     longitudeDelta: 0.0421
-      //   }}
-      // >
-      //   <MapView.Marker
-      //     coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
-      //   >
-      //     <Callout>
-      //       <View style={styles.calloutView}>
-      //         <Text>You are here</Text>
-      //       </View>
-      //     </Callout>
-      //   </MapView.Marker>
-      // </MapView>
     );
+
+    // <MapView
+    //   style={styles.map}
+    //   initialRegion={{
+    //     latitude: 37.78825,
+    //     longitude: -122.4324,
+    //     latitudeDelta: 0.0922,
+    //     longitudeDelta: 0.0421
+    //   }}
+    // >
+    //   <MapView.Marker
+    //     coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
+    //   >
+    //     <Callout>
+    //       <View style={styles.calloutView}>
+    //         <Text>You are here</Text>
+    //       </View>
+    //     </Callout>
+    //   </MapView.Marker>
+    // </MapView>
   }
 }
 
@@ -270,9 +280,9 @@ const styles = StyleSheet.create({
     paddingRight: width - CARD_WIDTH
   },
   card: {
-    padding: 10,
+    padding: 5,
     elevation: 2,
-    backgroundColor: "#FFF",
+    backgroundColor: "#fff",
     marginHorizontal: 10,
     shadowColor: "#000",
     shadowRadius: 5,
@@ -321,22 +331,19 @@ const styles = StyleSheet.create({
   }
 });
 
-// const styles = StyleSheet.create({
-//   container: {
-//     flex: 1,
-//     paddingTop: 15,
-//     backgroundColor: "#fff"
-//   },
-//   map: {
-//     flex: 1
-//   },
-//   calloutView: {
-//     flexDirection: "row",
-//     backgroundColor: "rgba(255, 255, 255, 0.9)",
-//     borderRadius: 10,
-//     width: "50%",
-//     marginLeft: "30%",
-//     marginRight: "30%",
-//     marginTop: 20
-//   }
-// });
+const mapStateToProps = state => {
+  return {
+    locations: state.locations.locations
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    getLocations: () => dispatch(getAllLocations())
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MapScreen);

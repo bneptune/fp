@@ -10,6 +10,7 @@ import HomeScreen from "../screens/HomeScreen";
 import MapScreen from "../screens/MapScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import EmojiDict from "../screens/EmojiDict";
+import SingleLocation from "../screens/SingleLocation";
 
 const EmojiStack = createStackNavigator({
   Emoji: EmojiDict
@@ -29,7 +30,7 @@ EmojiStack.navigationOptions = {
   )
 };
 
-export const HomeStack = createStackNavigator({
+const HomeStack = createStackNavigator({
   Home: HomeScreen
 });
 
@@ -75,9 +76,14 @@ SettingsStack.navigationOptions = {
   )
 };
 
+export const SingleStack = createStackNavigator({
+  Locations: SingleLocation
+});
+
 export default createBottomTabNavigator({
   HomeStack,
   MapStack,
   SettingsStack,
-  EmojiStack
+  EmojiStack,
+  SingleStack
 });

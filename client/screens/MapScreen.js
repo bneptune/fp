@@ -2,8 +2,7 @@ import React from "react";
 import { MapView } from "expo";
 import { Callout } from "react-native-maps";
 // import { createStackNavigator } from "react-navigation";
-// import SingleLocation from "../screens/SingleLocation";
-import { HomeStack } from "../screens/HomeScreen";
+import { SingleStack } from "../screens/SingleLocation";
 import {
   StyleSheet,
   Text,
@@ -181,7 +180,7 @@ export default class MapScreen extends React.Component {
                 style={styles.cardImage}
                 resizeMode="cover"
               />
-              <Button title="Test" onPress={() => navigate("HomeStack")} />
+              <Button title="Test" onPress={() => navigate("SingleStack")} />
               <View style={styles.textContent}>
                 <Text numberOfLines={1} style={styles.cardtitle}>
                   {marker.title}

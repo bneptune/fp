@@ -3,7 +3,14 @@ import { connect } from "react-redux";
 import { getSingleLocation } from "../store/locations";
 import { getAllLocations } from "../store/locations";
 import { withNavigation } from "react-navigation";
-import { View, Text, StyleSheet, TouchableWithoutFeedback } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  TouchableOpacity,
+  Linking
+} from "react-native";
 
 const Images = [
   {
@@ -102,7 +109,21 @@ class SingleLocation extends Component {
     return (
       <View>
         {currentLocation.map((place, index) => (
-          <Text key={index}>{place.title}</Text>
+          <View key={index}>
+            <Text>{place.title}</Text>
+            <Text>{place.description}</Text>
+            <TouchableOpacity
+              onPress={() =>
+                Linking.openURL(
+                  `maps://app?daddr=${place.coordinate.latitude}+${
+                    place.coordinate.longitude
+                  }`
+                )
+              }
+            >
+              <Text>Navigate</Text>
+            </TouchableOpacity>
+          </View>
         ))}
       </View>
     );

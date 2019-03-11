@@ -18,10 +18,6 @@ import {
   Button
 } from "react-native";
 
-// const HomeStack = createStackNavigator({
-//   Home: HomeScreen
-// });
-
 const Images = [
   {
     uri:
@@ -41,6 +37,18 @@ const Images = [
   {
     uri:
       "http://mediad.publicbroadcasting.net/p/wlrn/files/styles/x_large/public/201612/File_000_0.jpeg"
+  },
+  {
+    uri:
+      "https://upload.wikimedia.org/wikipedia/commons/thumb/5/50/Old_Westbury_Gardens_18.JPG/220px-Old_Westbury_Gardens_18.JPG"
+  },
+  {
+    uri:
+      "https://img.grouponcdn.com/pwa_test/45jakseyovcTErH37YqPgt9FpC9M/45-1440x810/v1/c700x420.jpg"
+  },
+  {
+    uri:
+      "https://blankslatepages.s3.amazonaws.com/5637ea2cbd653-Janes-Carousel-4-thumb-550x366.jpg"
   }
 ];
 
@@ -105,6 +113,36 @@ class MapScreen extends React.Component {
         description:
           "Macaroon cheesecake jujubes lemon drops jelly lemon drops caramels marzipan pastry. Toffee pie tiramisu. Topping caramels jelly. Cotton candy soufflé cupcake.",
         image: Images[4]
+      },
+      {
+        coordinate: {
+          latitude: 40.774637,
+          longitude: -73.6039843
+        },
+        title: "Old Westbury Gardens",
+        description:
+          "Icing cheesecake cheesecake bear claw tiramisu apple pie candy macaroon macaroon. Jelly-o dragée bear claw chupa chups sweet roll candy canes sesame snaps cake. Soufflé candy canes liquorice gummi bears. Tootsie roll halvah donut halvah dessert tart.",
+        image: Images[5]
+      },
+      {
+        coordinate: {
+          latitude: 40.774637,
+          longitude: -73.6039843
+        },
+        title: "Bushwick Collective",
+        description:
+          "Bear claw muffin marshmallow liquorice macaroon. Tootsie roll icing lemon drops. Pastry chocolate cake tiramisu candy marzipan donut sesame snaps. Danish tiramisu biscuit candy dragée toffee lollipop jujubes.",
+        image: Images[6]
+      },
+      {
+        coordinate: {
+          latitude: 40.7045544,
+          longitude: -73.9945468
+        },
+        title: "Jane's Carousel",
+        description:
+          "Chupa chups sweet roll soufflé candy canes marzipan liquorice liquorice. Pie sesame snaps cotton candy tiramisu bonbon carrot cake. Gummies cake caramels sesame snaps fruitcake chocolate bar caramels donut chupa chups.",
+        image: Images[7]
       }
     ],
     region: {
@@ -118,8 +156,6 @@ class MapScreen extends React.Component {
   componentWillMount() {
     const { navigation } = this.props;
     this.focusListener = navigation.addListener("didFocus", () => {
-      // The screen is focused
-      // Call any action
       this.props.getLocations();
     });
 
@@ -128,14 +164,11 @@ class MapScreen extends React.Component {
   }
 
   componentWillUnmount() {
-    // Remove the event listener
     this.focusListener.remove();
   }
   componentDidMount() {
-    // this.setState({ markers: this.state.markers });
-
     this.animation.addListener(({ value }) => {
-      let index = Math.floor(value / CARD_WIDTH + 0.3); // animate 30% away from landing on the next item
+      let index = Math.floor(value / CARD_WIDTH + 0.3);
       if (index >= this.state.markers.length) {
         index = this.state.markers.length - 1;
       }
@@ -252,11 +285,6 @@ class MapScreen extends React.Component {
                 >
                   <Text>{marker.title}</Text>
                 </TouchableOpacity>
-                {/* <Button
-                style={styles.button}
-                title={marker.title}
-                onPress={() => navigate("Single", { name: index })}
-              /> */}
               </View>
             </View>
           ))}

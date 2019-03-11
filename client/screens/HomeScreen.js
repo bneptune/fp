@@ -9,15 +9,15 @@ export default class NewPostScreen extends React.Component {
     const { navigate } = this.props.navigation;
     const { image } = this.props.navigation.state.params;
     return (
-      <View style={{ padding: 10, flexDirection: "row" }}>
+      <View style={{ padding: 10, flex: 1, flexDirection: "column" }}>
         <Image
           source={{ uri: image }}
-          style={{ resizeMode: "contain", aspectRatio: 1, width: 80 }}
+          style={{ resizeMode: "contain", aspectRatio: 1, width: "100%" }}
         />
 
         <TextInput
           multiline
-          style={{ flex: 1, paddingHorizontal: 20 }}
+          style={{ paddingHorizontal: 20 }}
           placeholder="Add a tip"
           onChangeText={text => {
             this.setState({ text });
@@ -35,12 +35,6 @@ export default class NewPostScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    // flex: 1,
-    width: "100%",
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
   input: {
     width: "50%"
   },

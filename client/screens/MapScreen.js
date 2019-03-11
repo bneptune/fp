@@ -245,13 +245,19 @@ class MapScreen extends React.Component {
                 resizeMode="cover"
               />
 
-              {/* <View style={styles.textContent}> */}
-              <Button
+              <View style={styles.text}>
+                <TouchableOpacity
+                  style={styles.cardtitle}
+                  onPress={() => navigate("Single", { name: index })}
+                >
+                  <Text>{marker.title}</Text>
+                </TouchableOpacity>
+                {/* <Button
                 style={styles.button}
                 title={marker.title}
                 onPress={() => navigate("Single", { name: index })}
-              />
-              {/* </View> */}
+              /> */}
+              </View>
             </View>
           ))}
         </Animated.ScrollView>
@@ -293,26 +299,22 @@ const styles = StyleSheet.create({
     height: "100%",
     alignSelf: "center"
   },
-  textContent: {
-    flex: 1
+  text: {
+    flex: 1,
+    justifyContent: "center",
+    alignSelf: "center"
   },
   cardtitle: {
     fontSize: 12,
     marginTop: 5,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    justifyContent: "center"
   },
   cardDescription: {
     fontSize: 10,
     color: "#444"
   },
-  button: {
-    width: "30%",
-    backgroundColor: "#FC3768",
-    paddingTop: 20,
-    paddingBottom: 20,
-    justifyContent: "center",
-    alignItems: "center"
-  },
+
   markerWrap: {
     alignItems: "center",
     justifyContent: "center"
@@ -324,8 +326,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(130,4,150, 0.9)"
   },
   ring: {
-    width: 24,
-    height: 24,
+    width: 20,
+    height: 20,
     borderRadius: 12,
     backgroundColor: "#f88379",
     position: "absolute",

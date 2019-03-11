@@ -1,37 +1,9 @@
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import { Image, TextInput, View, Button, StyleSheet } from "react-native";
-import HeaderButtons from "react-navigation-header-buttons";
 
 export default class NewPostScreen extends React.Component {
-  // static navigationOptions = ({ navigation }) => ({
-  //   title: "Home",
-  //   headerRight: (
-  //     <HeaderButtons IconComponent={Ionicons} iconSize={23} color="black">
-  //       <HeaderButtons.Item
-  //         title="Share"
-  //         onPress={() => {
-  //           const text = navigation.getParam("text");
-  //           const image = navigation.getParam("image");
-  //           if (text && image) {
-  //             navigation.goBack();
-  //             Fire.shared.post({ text: text.trim(), image });
-  //           } else {
-  //             alert("Need valid description");
-  //           }
-  //         }}
-  //       />
-  //     </HeaderButtons>
-  //   )
-  // });
-
   state = { text: "" };
-
-  handleSubmit = () => {
-    if (this.state.locationName !== "") {
-      this.props.onLocationAdded(this.state.locationName);
-    }
-  };
 
   render() {
     const { navigate } = this.props.navigation;

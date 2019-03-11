@@ -9,8 +9,6 @@ import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
 import MapScreen from "../screens/MapScreen";
 import CameraScreen from "../screens/CameraScreen";
-import SettingsScreen from "../screens/SettingsScreen";
-import EmojiDict from "../screens/EmojiDict";
 import SingleLocation from "../screens/SingleLocation";
 
 // const EmojiStack = createStackNavigator({
@@ -149,10 +147,10 @@ const stackNavigator = createStackNavigator(
     // This screen will not have a tab bar
     Single: SingleLocation,
     Home: HomeScreen
-  },
-  {
-    cardStyle: { backgroundColor: "white" }
   }
+  // {
+  //   cardStyle: { backgroundColor: "white"}
+  // }
 );
 
 // Export it as the root component

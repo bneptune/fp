@@ -104,17 +104,16 @@ class SingleLocation extends Component {
   }
 
   render() {
-    // console.log("stat", this.props.location);
-    // console.log("that", this.props.state);
     let location = this.props.navigation.getParam("name", "4");
-    console.log("loc", location);
+
     let currentLocation = this.state.markers.slice(location, location + 1);
-    // console.log("Current", currentLocation);
+
     return (
       <View styles={styles.container}>
         {currentLocation.map((place, index) => (
           <View key={index}>
             <Text>{place.title}</Text>
+            <Text>{""}</Text>
             <Text>{place.description}</Text>
             <TouchableOpacity
               onPress={() =>
@@ -125,6 +124,7 @@ class SingleLocation extends Component {
                 )
               }
             >
+              <Text>{""}</Text>
               <Text>Navigate</Text>
             </TouchableOpacity>
           </View>
@@ -137,14 +137,8 @@ class SingleLocation extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    width: "100%"
-  },
-  headerText: {
-    color: "#FFF",
-    fontWeight: "800",
-    fontSize: 23,
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    padding: 10
+    alignItems: "center",
+    justifyContent: "center"
   },
   bodyText: {
     padding: 10,

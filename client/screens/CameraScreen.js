@@ -35,7 +35,7 @@ export default class SelectPhotoScreen extends Component {
     return (
       <View style={styles.container}>
         <Text onPress={this._selectPhoto} style={styles.text}>
-          Select Photo
+          Upload Photo
         </Text>
         <Text onPress={this._takePhoto} style={styles.text}>
           Take Photo
@@ -52,9 +52,9 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   text: {
+    fontWeight: "300",
+    textAlign: "center",
     padding: 24,
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center"
+    fontSize: 20
   }
 });

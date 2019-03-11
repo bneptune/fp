@@ -1,8 +1,8 @@
 import React from "react";
 import { MapView } from "expo";
-import { Callout } from "react-native-maps";
+// import { Callout } from "react-native-maps";
 // import { createStackNavigator } from "react-navigation";
-import { SingleStack } from "../screens/SingleLocation";
+// import { SingleStack } from "../screens/SingleLocation";
 import { connect } from "react-redux";
 import { getAllLocations } from "../store/locations";
 import { withNavigation } from "react-navigation";
@@ -54,8 +54,8 @@ const Images = [
 
 const { width, height } = Dimensions.get("window");
 
-const CARD_HEIGHT = height / 4;
-const CARD_WIDTH = CARD_HEIGHT - 50;
+const cardHeight = height / 4;
+const cardWidth = cardHeight - 50;
 
 class MapScreen extends React.Component {
   static navigationOptions = {
@@ -168,7 +168,7 @@ class MapScreen extends React.Component {
   }
   componentDidMount() {
     this.animation.addListener(({ value }) => {
-      let index = Math.floor(value / CARD_WIDTH + 0.3);
+      let index = Math.floor(value / cardWidth + 0.3);
       if (index >= this.state.markers.length) {
         index = this.state.markers.length - 1;
       }
@@ -187,7 +187,7 @@ class MapScreen extends React.Component {
               latitudeDelta: this.state.region.latitudeDelta,
               longitudeDelta: this.state.region.longitudeDelta
             },
-            350
+            300
           );
         }
       }, 10);
@@ -201,9 +201,9 @@ class MapScreen extends React.Component {
 
     const interpolations = this.state.markers.map((marker, index) => {
       const inputRange = [
-        (index - 1) * CARD_WIDTH,
-        index * CARD_WIDTH,
-        (index + 1) * CARD_WIDTH
+        (index - 0.7) * cardWidth,
+        index * cardWidth,
+        (index + 0.7) * cardWidth
       ];
       const scale = this.animation.interpolate({
         inputRange,
@@ -254,7 +254,7 @@ class MapScreen extends React.Component {
           horizontal
           scrollEventThrottle={1}
           showsHorizontalScrollIndicator={false}
-          snapToInterval={CARD_WIDTH}
+          snapToInterval={cardWidth}
           onScroll={Animated.event(
             [
               {
@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10
   },
   endPadding: {
-    paddingRight: width - CARD_WIDTH
+    paddingRight: width - cardWidth
   },
   card: {
     padding: 5,
@@ -317,8 +317,8 @@ const styles = StyleSheet.create({
     shadowRadius: 5,
     shadowOpacity: 0.2,
     shadowOffset: { x: 3, y: -3 },
-    height: CARD_HEIGHT,
-    width: CARD_WIDTH,
+    height: cardHeight,
+    width: cardWidth,
     overflow: "hidden"
   },
   cardImage: {

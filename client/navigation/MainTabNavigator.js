@@ -13,12 +13,9 @@ import SingleLocation from "../screens/SingleLocation";
 
 const navigator = createBottomTabNavigator(
   {
-    // The name `Feed` is used later for accessing screens
     Locations: {
-      // Define the component we will use for the Feed screen.
       screen: MapScreen,
       navigationOptions: {
-        // Add a cool Material Icon for this screen
         tabBarIcon: ({ focused }) => (
           <TabBarIcon
             focused={focused}
@@ -40,7 +37,6 @@ const navigator = createBottomTabNavigator(
     }
   },
   {
-    // We want to hide the labels and set a nice 2-tone tint system for our tabs
     tabBarOptions: {
       showLabel: true,
       activeTintColor: "black",
@@ -49,22 +45,15 @@ const navigator = createBottomTabNavigator(
   }
 );
 
-// Create the navigator that pushes high-level screens like the `NewPost` screen.
-const stackNavigator = createStackNavigator(
-  {
-    Main: {
-      screen: navigator,
-      // Set the title for our app when the tab bar screen is present
-      navigationOptions: { title: "PheedMe 🌈 " }
-    },
-    // This screen will not have a tab bar
-    Single: SingleLocation,
-    Home: HomeScreen
-  }
-  // {
-  //   cardStyle: { backgroundColor: "white"}
-  // }
-);
+const stackNavigator = createStackNavigator({
+  Main: {
+    screen: navigator,
 
-// Export it as the root component
+    navigationOptions: { title: "PheedMe 🌈 " }
+  },
+
+  Single: SingleLocation,
+  Home: HomeScreen
+});
+
 export default stackNavigator;

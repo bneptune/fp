@@ -8,7 +8,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Linking
+  Linking,
+  Image
 } from "react-native";
 
 const Images = [
@@ -169,6 +170,7 @@ class SingleLocation extends Component {
               <Text>{""}</Text>
               <Text>Navigate</Text>
             </TouchableOpacity>
+            <Image source={place.image} resizeMode="cover" />
           </View>
         ))}
       </View>

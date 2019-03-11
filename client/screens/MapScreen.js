@@ -287,8 +287,8 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     shadowColor: "#000",
     shadowRadius: 5,
-    shadowOpacity: 0.3,
-    shadowOffset: { x: 2, y: -2 },
+    shadowOpacity: 0.2,
+    shadowOffset: { x: 3, y: -3 },
     height: CARD_HEIGHT,
     width: CARD_WIDTH,
     overflow: "hidden"
@@ -301,6 +301,7 @@ const styles = StyleSheet.create({
   },
   text: {
     flex: 1,
+    fontWeight: "bold",
     justifyContent: "center",
     alignSelf: "center"
   },
@@ -309,10 +310,6 @@ const styles = StyleSheet.create({
     marginTop: 5,
     fontWeight: "bold",
     justifyContent: "center"
-  },
-  cardDescription: {
-    fontSize: 10,
-    color: "#444"
   },
 
   markerWrap: {

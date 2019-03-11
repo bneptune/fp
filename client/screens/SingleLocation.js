@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   Linking
 } from "react-native";
+import { Camera, Permissions } from "expo";
 
 const Images = [
   {
@@ -84,6 +85,11 @@ class SingleLocation extends Component {
       }
     ]
   };
+
+  async componentDidMount() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({ hasCameraPermission: status === "granted" });
+  }
 
   componentWillMount() {
     const { navigation } = this.props;

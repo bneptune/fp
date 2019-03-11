@@ -8,6 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import TabBarIcon from "../components/TabBarIcon";
 import HomeScreen from "../screens/HomeScreen";
 import MapScreen from "../screens/MapScreen";
+import CameraScreen from "../screens/CameraScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import EmojiDict from "../screens/EmojiDict";
 import SingleLocation from "../screens/SingleLocation";
@@ -126,6 +127,17 @@ const navigator = createBottomTabNavigator(
           />
         )
       }
+    },
+    Camera: {
+      screen: CameraScreen,
+      navigationOptions: {
+        tabBarIcon: ({ focused }) => (
+          <TabBarIcon
+            focused={focused}
+            name={Platform.OS === "ios" ? "ios-camera" : "md-camera"}
+          />
+        )
+      }
     }
   },
   {
@@ -144,7 +156,7 @@ const stackNavigator = createStackNavigator(
     Main: {
       screen: navigator,
       // Set the title for our app when the tab bar screen is present
-      navigationOptions: { title: "PheedMe 🐷" }
+      navigationOptions: { title: "PheedMe" }
     },
     // This screen will not have a tab bar
     Single: SingleLocation

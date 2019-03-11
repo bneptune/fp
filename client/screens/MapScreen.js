@@ -239,43 +239,19 @@ class MapScreen extends React.Component {
                 style={styles.cardImage}
                 resizeMode="cover"
               />
+
+              {/* <View style={styles.textContent}> */}
               <Button
+                style={styles.button}
                 title={marker.title}
                 onPress={() => navigate("Single", { name: index })}
               />
-              <View style={styles.textContent}>
-                <Text numberOfLines={1} style={styles.cardtitle}>
-                  {marker.title}
-                </Text>
-                <Text numberOfLines={1} style={styles.cardDescription}>
-                  {marker.description}
-                </Text>
-              </View>
+              {/* </View> */}
             </View>
           ))}
         </Animated.ScrollView>
       </React.Fragment>
     );
-
-    // <MapView
-    //   style={styles.map}
-    //   initialRegion={{
-    //     latitude: 37.78825,
-    //     longitude: -122.4324,
-    //     latitudeDelta: 0.0922,
-    //     longitudeDelta: 0.0421
-    //   }}
-    // >
-    //   <MapView.Marker
-    //     coordinate={{ latitude: 37.78825, longitude: -122.4324 }}
-    //   >
-    //     <Callout>
-    //       <View style={styles.calloutView}>
-    //         <Text>You are here</Text>
-    //       </View>
-    //     </Callout>
-    //   </MapView.Marker>
-    // </MapView>
   }
 }
 
@@ -296,7 +272,7 @@ const styles = StyleSheet.create({
   card: {
     padding: 5,
     elevation: 2,
-    backgroundColor: "#fff",
+    backgroundColor: "#79f8c3",
     marginHorizontal: 10,
     shadowColor: "#000",
     shadowRadius: 5,
@@ -321,8 +297,16 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   cardDescription: {
-    fontSize: 12,
+    fontSize: 10,
     color: "#444"
+  },
+  button: {
+    width: "30%",
+    backgroundColor: "#FC3768",
+    paddingTop: 20,
+    paddingBottom: 20,
+    justifyContent: "center",
+    alignItems: "center"
   },
   markerWrap: {
     alignItems: "center",

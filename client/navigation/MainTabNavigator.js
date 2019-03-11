@@ -111,19 +111,7 @@ const navigator = createBottomTabNavigator(
         tabBarIcon: ({ focused }) => (
           <TabBarIcon
             focused={focused}
-            name={Platform.OS === "ios" ? "ios-camera" : "md-camera"}
-          />
-        )
-      }
-    },
-    // All the same stuff but for the Photo screen
-    Home: {
-      screen: HomeScreen,
-      navigationOptions: {
-        tabBarIcon: ({ focused }) => (
-          <TabBarIcon
-            focused={focused}
-            name={Platform.OS === "ios" ? "ios-camera" : "md-camera"}
+            name={Platform.OS === "ios" ? "ios-brush" : "md-brush"}
           />
         )
       }
@@ -156,10 +144,11 @@ const stackNavigator = createStackNavigator(
     Main: {
       screen: navigator,
       // Set the title for our app when the tab bar screen is present
-      navigationOptions: { title: "PheedMe" }
+      navigationOptions: { title: "PheedMe 🌈 " }
     },
     // This screen will not have a tab bar
-    Single: SingleLocation
+    Single: SingleLocation,
+    Home: HomeScreen
   },
   {
     cardStyle: { backgroundColor: "white" }

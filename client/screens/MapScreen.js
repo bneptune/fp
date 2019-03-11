@@ -62,7 +62,8 @@ class MapScreen extends React.Component {
           longitude: -76.9990501
         },
         title: "Heart Wall",
-        description: "This is the best place in Portland",
+        description:
+          "Icing cheesecake cheesecake bear claw tiramisu apple pie candy macaroon macaroon. Jelly-o dragée bear claw chupa chups sweet roll candy canes sesame snaps cake. Soufflé candy canes liquorice gummi bears. Tootsie roll halvah donut halvah dessert tart.",
         image: Images[0]
       },
       {
@@ -71,7 +72,8 @@ class MapScreen extends React.Component {
           longitude: -77.027537
         },
         title: "Watermelon Wall",
-        description: "This is the second best place in Portland",
+        description:
+          "Bear claw muffin marshmallow liquorice macaroon. Tootsie roll icing lemon drops. Pastry chocolate cake tiramisu candy marzipan donut sesame snaps. Danish tiramisu biscuit candy dragée toffee lollipop jujubes.",
         image: Images[1]
       },
       {
@@ -80,7 +82,8 @@ class MapScreen extends React.Component {
           longitude: -73.9968509
         },
         title: "Pietro Nolita",
-        description: "This is the best place in Portland",
+        description:
+          "Chupa chups sweet roll soufflé candy canes marzipan liquorice liquorice. Pie sesame snaps cotton candy tiramisu bonbon carrot cake. Gummies cake caramels sesame snaps fruitcake chocolate bar caramels donut chupa chups.",
         image: Images[2]
       },
       {
@@ -89,7 +92,8 @@ class MapScreen extends React.Component {
           longitude: -76.9996593
         },
         title: "Union Market",
-        description: "This is the best place in Portland",
+        description:
+          "Icing candy tart chocolate bar macaroon sesame snaps jujubes soufflé. Liquorice sweet roll fruitcake ice cream. Brownie lollipop sugar plum wafer tart wafer. Toffee tiramisu donut cupcake powder dragée apple pie.",
         image: Images[3]
       },
       {
@@ -98,7 +102,8 @@ class MapScreen extends React.Component {
           longitude: -73.9944267
         },
         title: "305 Fitness",
-        description: "This is the best place in Portland",
+        description:
+          "Macaroon cheesecake jujubes lemon drops jelly lemon drops caramels marzipan pastry. Toffee pie tiramisu. Topping caramels jelly. Cotton candy soufflé cupcake.",
         image: Images[4]
       }
     ],
